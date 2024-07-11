@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Login.css">
+    <title>Login Page </title>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="dashboard.html" method="POST" onsubmit="return validateForm()">
+        
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Login" >
+        </form>
+        <p>Don't have an account? <a href="registration.html">Register here</a></p>
+    </div>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            var usernameError = document.getElementById("usernameError");
+            var passwordError = document.getElementById("passwordError");
+
+            // Reset error messages
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+
+            var isValid = true;
+
+            // Validate username
+            if (!isValidUsername(username)) {
+                usernameError.textContent = "Username must be between 3 to 20 characters long.";
+                isValid = false;
+            }
+
+            // Validate password
+            if (!isValidPassword(password)) {
+                passwordError.textContent = "Password must be at least 8 characters long.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function isValidUsername(username) {
+            // Username must be between 3 to 20 characters long
+            return username.length >= 3 && username.length <= 20;
+        }
+
+        function isValidPassword(password) {
+            // Password must be at least 8 characters long
+            return password.length >= 8;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+    <form id="registrationForm" action="Login.html" method="POST" onsubmit="return validateForm()">
+
+    <!-- Registeration=> Email, Username, Password, Address -->
+        <h2>User Registration</h2>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+         
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+
+        <input type="submit" value="Register">
+        <p>Already have an account? <a href="login.html">Login here</a>.</p>
+
+    </form>
+    <!-- local storage -->
+    <script type="text/javascript">
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('gggggggggggggg');
+            const formData = new FormData(event.target);
+            const formProps = Object.fromEntries(formData);
+    
+            Object.entries(formProps).forEach(([key, value]) => {
+                localStorage.setItem(key, value);
+            });
+    
+            console.log('Form data saved to localStorage:', formProps);
+        });
+        </script>
+
+    <script>
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var address = document.getElementById("address").value;
+
+            var emailError = document.getElementById("emailError");
+            var usernameError = document.getElementById("usernameError");
+            var passwordError = document.getElementById("passwordError");
+            var addressError = document.getElementById("addressError");
+
+            // Reset error messages
+            emailError.textContent = "";
+            usernameError.textContent = "";
+            passwordError.textContent = "";
+            addressError.textContent = "";
+
+            var isValid = true;
+
+            // Validate email
+            if (!isValidEmail(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                isValid = false;
+            }
+
+            // Validate username
+            if (!isValidUsername(username)) {
+                usernameError.textContent = "Username must be between 3 to 20 characters long.";
+                isValid = false;
+            }
+
+            // Validate password
+            if (!isValidPassword(password)) {
+                passwordError.textContent = "Password must be at least 8 characters long.";
+                isValid = false;
+            }
+
+            // Validate address
+            if (address.trim() === "") {
+                addressError.textContent = "Please enter your address.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function isValidEmail(email) 
+        {
+            // Basic email validation using regex
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+
+        function isValidUsername(username) 
+        {
+            // Username must be between 3 to 20 characters long
+            return username.length >= 3 && username.length <= 20;
+        }
+
+        function isValidPassword(password) 
+        {
+            // Password must be at least 8 characters long
+            return password.length >= 8;
+        }
+    </script>
+
+</script>
+</body>
+</html>

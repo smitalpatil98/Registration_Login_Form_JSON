@@ -1,0 +1,90 @@
+{
+"employees":[
+{
+"id":1,
+"name":"Ram",
+"salary":"10000"
+},
+{
+"name":"David",
+"salary":"5000",
+"id":2
+},
+{
+"name":"Lisa",
+"salary":"8000",
+"id":3
+}
+]
+}
+-------------------------------CURL COMMANDS -------------------------------------- 
+$ json-server --watch empDB.json
+--watch/-w can be omitted, JSON Server 1+ watches for file changes by default
+JSON Server started on PORT :3000
+Press CTRL-C to stop
+Watching empDB.json...
+
+♡⸜(˶˃ ᵕ ˂˶)⸝♡
+
+Index:
+http://localhost:3000/
+
+Static files:
+Serving ./public directory if it exists
+
+Endpoints:
+http://localhost:3000/employees
+
+1)patil@DESKTOP-9BMK8GK MINGW64 ~ (main)
+$ curl -X GET -H "Content-Type: application/json" "http://localhost:3000/employees"
+[
+  {
+    "id": "1",
+    "name": "Ram",
+    "salary": "10000"
+  },
+  {
+    "name": "David",
+    "salary": "5000",
+    "id": "2"
+  },
+  {
+    "name": "Lisa",
+    "salary": "8000",
+    "id": "3"
+  }
+]
+
+2)patil@DESKTOP-9BMK8GK MINGW64 ~ (main)
+$ curl -X GET -H "Content-Type: application/json" "http://localhost:3000/employees/1"
+{
+  "id": "1",
+  "name": "Ram",
+  "salary": "10000"
+}
+
+3)patil@DESKTOP-9BMK8GK MINGW64 ~ (main)
+$ curl -X PUT -H "Content-Type: application/json" -d '{"name": "Lisa","salary": "2000"}' "http://localhost:3000/employees"
+Not Found
+patil@DESKTOP-9BMK8GK MINGW64 ~ (main)
+$  curl -X PUT -H "Content-Type: application/json" -d '{"name": "Lisa","salary": "2000"}' "http://localhost:3000/employees/3"
+{
+  "name": "Lisa",
+  "salary": "2000",
+  "id": "3"
+}
+
+4)patil@DESKTOP-9BMK8GK MINGW64 ~ (main)
+$ curl -XPUT -H "Content-Type: application/json" -d '{"name": "Lisa", "salary": "8000"}' "http://localhost:3000/employees/3"
+{
+  "name": "Lisa",
+  "salary": "8000",
+  "id": "3"
+}
+
+5)$ curl -X DELETE -H "Content-Type: application/json" "http://localhost:3000/employees/2"
+{
+  "name": "David",
+  "salary": "5000",
+  "id": "2"
+}
